@@ -249,7 +249,7 @@ namespace UnityEditor.AddressableAssets.HostingServices
             m_Settings.profileSettings.RegisterProfileStringEvaluationFunc(svc.EvaluateProfileString);
 
             m_HostingServiceInfoMap.Add(svc, info);
-            m_Settings.SetDirty(AddressableAssetSettings.ModificationEvent.HostingServicesManagerModified, this, true, true);            
+            m_Settings.SetDirty(AddressableAssetSettings.ModificationEvent.HostingServicesManagerModified, this, true, true);
             AddressableAssetUtility.OpenAssetIfUsingVCIntegration(m_Settings);
 
             m_NextInstanceId++;
@@ -523,12 +523,17 @@ namespace UnityEditor.AddressableAssets.HostingServices
 
             foreach (IPAddress address in ipAddresses)
             {
-                var sender = new System.Net.NetworkInformation.Ping();
-                var reply = sender.Send(address.ToString(), 5000);
-                if (reply.Status == IPStatus.Success)
-                {
-                    validIpList.Add(address);
-                }
+				try
+				{
+                	var sender = new System.Net.NetworkInformation.Ping();
+                	var reply = sender.Send(address.ToString(), 5000);
+                	if (reply.Status == IPStatus.Success)
+                	{
+	                    validIpList.Add(address);
+                	}
+				}
+				catch(SocketException)
+				{}
             }
             return validIpList;
         }

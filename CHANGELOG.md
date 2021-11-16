@@ -4,6 +4,9 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.19.12] - 2021-11-16
+- Fixed unhandled SocketException in HostingServicesManager
+
 ## [1.19.11] - 2021-10-23
 - Fixed issue with missing reference exception when using addressables where content has not been built.
 - Added warning that LZMA compression is not available for WebGL AssetBundles.
