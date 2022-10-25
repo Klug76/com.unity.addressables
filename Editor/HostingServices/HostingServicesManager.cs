@@ -575,11 +575,16 @@ namespace UnityEditor.AddressableAssets.HostingServices
             foreach (IPAddress address in ipAddresses)
             {
                 var sender = new System.Net.NetworkInformation.Ping();
-                var reply = sender.Send(address.ToString(), PingTimeoutInMilliseconds);
-                if (reply.Status == IPStatus.Success)
+                try
                 {
-                    validIpList.Add(address);
+                    var reply = sender.Send(address.ToString(), PingTimeoutInMilliseconds);
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        validIpList.Add(address);
+                    }
                 }
+                catch(SocketException)
+                {}
             }
 
             return validIpList;
